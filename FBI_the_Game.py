@@ -13,28 +13,27 @@ horizontal.
 dataFile = "FBI_the_Game_Data_2.txt"
 data = open(dataFile, 'r')
 
-#import modules
-import re, random
+#instance variables
+coordinates = []
 
 #grab the dimensions from the data file to create the yard
 gridInfo = data.readline()
 gridInfo = gridInfo.split()
-xAxis = gridInfo[0]
-yAxis = gridInfo[1]
+xAxis = int(gridInfo[0])
+yAxis = int(gridInfo[1])
 yard = [["." for x in range(int(xAxis))] for x in range(int(yAxis))] #matrix for the yard
 
 #grab the rest of the info on this line
-numberOfBones = gridInfo[2]
-sizeOfBone = gridInfo[3]
+numberOfBones = int(gridInfo[2])
+sizeOfBone = int(gridInfo[3])
 
 #define all the functions
 def getCoordinates():
     """Gets the coordinates of bones from FBI_the_Game_Data_2.txt
     """
     allCoordinates = []
-    coordinates = []
     eachLine = data.readlines()
-    currentLine = 1
+    currentLine = 0
     while currentLine < len(eachLine):
         line = eachLine[currentLine].split()
         i = 0
@@ -52,23 +51,23 @@ def getCoordinates():
 def isHit():
     """
     Returns True if the inputted coordinates has hit part of a bone.
-    Otherwise, False is returned if part of a bone is not hit.
     """
     for i in range(numberOfBones):  #do the following for all the bones...
         line = coordinates[i]
         for j in range(sizeOfBone): #check if coordinate matches a particular bone
             pos = line[j]
-            if int(guess[0]) == pos[0] and int(guess[1]) == pos[1]:
+            if int(guess[0]) == int(pos[0]) and int(guess[1]) == int(pos[1]):
+                print("****HIT!!!!****")
                 return True
-            else:
-                return False
 
 def changeBonePart():
     """
     This function changes a "." to a "B" in the yard matrix when a bone is hit.
     """
     if isHit():
-        yard[guess[0]][guess[1]] = "B"
+        yard[int(guess[0])][int(guess[1])] = "B"
+    else:
+        print("****OOPS! MISSED!****")
 
 def showYard():
     """
@@ -80,7 +79,7 @@ def showYard():
     top = "" #x axis numbers
     sideNum = 0 #y axis numbers
     #create the x axis numbers
-    for i in range(int(xAxis)):
+    for i in range(xAxis):
         if i <= 9:
             top += str(i) + "  " #add one space between double digits
         if i > 9:
@@ -90,6 +89,12 @@ def showYard():
     for row in yard:
         print("  ".join(row) + "  " + str(sideNum))
         sideNum += 1
+
+def isNotInteger():
+    try:
+        guess[0] = int(guess[0])
+    except ValueError:
+        return True
 
 """
 def showBone(boneNumber):
@@ -129,32 +134,26 @@ In this game, we dig out bones from Mrs. Hudson's backyard!""")
 #get the valid input with guardian code
 running = True
 while running:
-    print("\n\nThere are " + numberOfBones + " bones, each are " + sizeOfBone + " cells long, buried in this backyard! Can you find them? ")
+    print("\n\nThere are " + str(numberOfBones) + " bones, each are " + str(sizeOfBone) + " cells long, buried in this backyard! Can you find them? ")
     showYard()
-    choice = input("""To do so, please, enter the row and the column number of a cell in which you suspect a bone is buried
+    guess = input("""To do so, please, enter the row and the column number of a cell in which you suspect a bone is buried
 (e.g., 0 3 if you suspect that part of a bone is buried on the first row at the 4th column).
 Enter -1 to quit : """)
 
     getCoordinates()
-    choice = choice.split()
+    guess = guess.split()
 
-    if len(choice) == 0:
+    if len(guess) == 0:
         print("***You have not entered anything. You need to enter a valid row and the column number!")
-    elif int(choice[0]) == -1:
+    elif int(guess[0]) == -1:
         print("\nWasn't it fun! Bye!")
         running = False
-    elif len(re.findall("[A-Z]", choice)) >= 1 or len(re.findall("[a-z]", choice)) >= 1:
-        print("***You have entered " + str(guess) + ". You need to enter a valid row and the column number!")
-    elif re.match("^\d+?\.\d+?$", choice) is not None:  #checking for floats
-        print("***You have entered " + str(choice) + ".  That doesn't make sense.  Please enter an integer.")
-    elif len(choice) == 1:
+    elif isNotInteger():
+        print("***You have entered " + str(guess[0]) + ". You need to enter a valid row and the column number!")
+    elif len(guess) == 1:
         print("***You have entered only 1 value. You need to enter a valid row and the column number!")
-    elif (choice[0] > yAxis or choice[0] < yAxis) or (choice[0] > xAxis or choice[0] < xAxis):
+    elif (int(guess[0]) > int(yAxis) or int(guess[0]) < 0) or (int(guess[0]) > xAxis or int(guess[0]) < 0) or (int(guess[1]) > int(yAxis) or int(guess[1]) < 0) or (int(guess[1]) > xAxis or int(guess[1]) < 0):
         print("You needed to enter a row and column number of a cell that is within the backyard!")
-        running = False
-    elif int(choice) < -1 or int(choice) > 8:
-        print("***You have entered " + str(choice) + " which is not in the desired range. You need to enter a valid number!")
     else:
         #good to go!
         changeBonePart()
-        showYard()
