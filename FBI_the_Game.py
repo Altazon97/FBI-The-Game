@@ -1,8 +1,10 @@
 """
-FBI.py
+FBI_the_Game.py
 
-Eric P. Sund
-November 4, 2015
+Eric Sund
+Andy Zeng
+
+November 24, 2015
 
 This program allows a user to guess the locations of bones that Sherlock Holmes
 buried for his dog in a custom-sized grid.  Bones can face either vertical or
