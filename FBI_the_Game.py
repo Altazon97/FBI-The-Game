@@ -59,7 +59,7 @@ def isHit():
         for j in range(sizeOfBone): #check if coordinate matches a particular bone
             pos = line[j]
             if int(guess[0]) == int(pos[0]) and int(guess[1]) == int(pos[1]):
-                print("****HIT!!!!****")
+                print("\n****HIT!!!!****")
                 return True
 
 def changeBonePart():
@@ -98,36 +98,6 @@ def isNotInteger():
     except ValueError:
         return True
 
-"""
-def showBone(boneNumber):
-    #showBone() changes a "." to a "B" when a bone is hit.
-
-    if
-
-    #draw the bones
-    yardToShowBoneIn = [["." for x in range(15)] for x in range(12)]
-    if bones[boneNumber-1][2] == 'right':
-        for i in range(6):
-            yardToShowBoneIn[bones[(boneNumber-1)][0]][bones[(boneNumber-1)][1] + i] = "B"
-
-    elif bones[boneNumber-1][2] == 'left':
-        yardToShowBoneIn = [["." for x in range(15)] for x in range(12)]
-        for i in range(6, 0, -1):
-            yardToShowBoneIn[bones[(boneNumber-1)][0]][bones[(boneNumber-1)][1] - i] = "B"
-
-    elif bones[boneNumber-1][2] == 'up':
-        yardToShowBoneIn = [["." for x in range(15)] for x in range(12)]
-        for i in range(6, 0, -1):
-            yardToShowBoneIn[bones[(boneNumber-1)][0] - i][bones[(boneNumber-1)][1]] = "B"
-
-    elif bones[boneNumber-1][2] == 'down':
-        yardToShowBoneIn = [["." for x in range(15)] for x in range(12)]
-        for i in range(6):
-            yardToShowBoneIn[bones[(boneNumber-1)][0] + i][bones[(boneNumber-1)][1]] = "B"
-
-    print("\nHere is the backyard with 1 bone buried: ")
-    showYard(yardToShowBoneIn)
-"""
 
 #MAIN
 print("""Welcome to Fast Bone Investigation (FBI) the game.
@@ -159,3 +129,9 @@ Enter -1 to quit : """)
     else:
         #good to go!
         changeBonePart()
+
+
+"""
+1.  loop for adding coordinates to the list
+2.  code to say if entire bone is hit
+"""
