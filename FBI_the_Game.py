@@ -93,6 +93,9 @@ def showYard():
         sideNum += 1
 
 def isNotInteger():
+    """
+    chekc to see whether the input is an integer or not
+    """
     try:
         guess[0] = int(guess[0])
     except ValueError:
@@ -134,4 +137,6 @@ Enter -1 to quit : """)
 """
 1.  loop for adding coordinates to the list
 2.  code to say if entire bone is hit
+3.  guardian code
+4.  comments
 """
