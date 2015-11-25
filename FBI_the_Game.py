@@ -19,17 +19,17 @@ def getDataFile():
     """This function asks the user to enter the name of the data file and reads it.
     If it cant be read or doesn't exist, the user is asked to try again.
     """
-    
+
     #Open the file before doing anything
     getfile = 0
     while getfile == 0:
-        dataFile = "FBI_the_Game_Data_2.txt"    ### FOR DEBUGGING
+        dataFile = input("Please enter the name of the data file: ")    ### FOR DEBUGGING
         #dataFile = input("Please, enter the name of the file with the data you wish to use: ")
         try:
             data = open(dataFile, 'r')
             getfile = 1
         except ValueError:
-            print("You have entered an incorrect filename, please try again.")
+            print("You have entered an incorrect filename, please try again.\n")
     return data
 
 
@@ -37,7 +37,7 @@ def getDataFile():
 def getCoordinates():
     """This function gets the coordinates of bones from data file.
     """
-    
+
     eachLine = data.readlines()
     allCoordinates = []
     #Iterate through lines
@@ -59,7 +59,7 @@ def getCoordinates():
 def isHit():
     """This function returns True if the inputed coordinates has hit part of a bone.
     """
-    
+
     for i in range(numberOfBones):  #Do the following for all the bones...
         line = bonelist[i]
         for j in range(sizeOfBone): #Check if coordinate matches a particular bone
@@ -74,7 +74,7 @@ def isComplete():
     """This function generates a yard with all of the bones displayed, compares it to the user-generated yard.
     If the two are the same (i.e. user is done the game), prints out the yard and returns True.
     """
-    
+
     #Create complete yard to compare
     complete_yard = [["." for x in range(int(xAxis))] for x in range(int(yAxis))]   #new matric for the complete yard
     for i in range(numberOfBones):  #Do the following for all the bones...
@@ -85,19 +85,19 @@ def isComplete():
             col = int(pos[1])
             #Assign each B to complete yard
             complete_yard[row][col] = "B"
-            
+
     #Check if user yard is complete
     if yard == complete_yard:
         print("\n")         #Separator for aesthetic effect
         showYard()          #Display completed yard
         return 1
-    
-    
+
+
 #Reveal the bone if user guess correctly
 def revealBone():
     """This function changes a "." to a "B" in the yard matrix when a bone is hit.
     """
-    
+
     if isHit():
         yard[int(guess[0])][int(guess[1])] = "B"
     else:
@@ -128,7 +128,7 @@ def showYard():
 def isNotInteger():
     """This function checks to see whether the input is an integer or not.
     """
-    
+
     try:
         guess[0] = int(guess[0])
     except ValueError:
@@ -141,7 +141,7 @@ def isNotInteger():
 
 #Introduce the User
 print("""Welcome to Fast Bone Investigation (FBI) the game.
-In this game, we dig out bones from Mrs. Hudson's backyard!""")
+In this game, we dig out bones from Mrs. Hudson's backyard!\n""")
 
 #Get the data file
 data = getDataFile()
@@ -163,13 +163,13 @@ bonelist = getCoordinates()
 #Get the valid input with guardian code
 running = True
 while running:
-    print("\n\nThere are " + str(numberOfBones) + " bones, each are " + str(sizeOfBone) + " cells long, buried in this backyard! Can you find them? ")
+    print("\nThere are " + str(numberOfBones) + " bones, each are " + str(sizeOfBone) + " cells long, buried in this backyard! Can you find them? ")
     showYard()
     guess = input("""To do so, please, enter the row and the column number of a cell in which you suspect a bone is buried
 (e.g., 0 3 if you suspect that part of a bone is buried on the first row at the 4th column).
 Enter -1 to quit : """).split()
 
-    #Check for empty input 
+    #Check for empty input
     if len(guess) == 0:
         print("***You have not entered anything. You need to enter a valid row and the column number!")
     #Check to ensure input is integer
@@ -179,7 +179,7 @@ Enter -1 to quit : """).split()
     elif int(guess[0]) == -1:
         print("\nWasn't it fun! Bye!")
         running = False
-    #If the user doesn't enter both row and column values  
+    #If the user doesn't enter both row and column values
     elif len(guess) == 1:
         print("***You have entered only 1 value. You need to enter a valid row and the column number!")
     #If coordinate is beyond the backyard's dimensions
