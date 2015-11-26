@@ -17,18 +17,11 @@ horizontal.
 #Get the data file
 def getDataFile():
     """This function asks the user to enter the name of the data file and reads it.
-    If it cant be read or doesn't exist, the user is asked to try again.
     """
 
     #Open the file before doing anything
-    getfile = 0
-    while getfile == 0:
-        dataFile = input("Please, enter the name the data file: ")
-        try:
-            data = open(dataFile, 'r')
-            getfile = 1
-        except ValueError:
-            print("\nYou have entered an incorrect filename, please try again.\n")
+    dataFile = input("Please, enter the name the data file: ")
+    data = open(dataFile, 'r')
     return data
 
 
