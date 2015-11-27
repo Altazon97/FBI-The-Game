@@ -20,7 +20,7 @@ def getDataFile():
     """
 
     #Open the file before doing anything
-    dataFile = input("Please, enter the name the data file: ")
+    dataFile = input("\nPlease, enter the name the data file: ")
     data = open(dataFile, 'r')
     return data
 
@@ -111,7 +111,8 @@ def isCompleteBone(row, col):
 
         #Sort and compare bone and new_hit_list to see if they are equivalent
         if sorted(bone)== sorted(new_hit_list):
-            print("You have fully uncovered bone " + str(i) + ". Great Job!\n")
+            i += 1
+            print("\nYou have fully uncovered bone " + str(i) + ". Great Job!\n")
 
         #Clear bone and new_hit_list to iterate through next bone
         bone = []
@@ -151,7 +152,6 @@ def revealBone():
         #Replace the "." with "B"
         yard[int(guess[0])][int(guess[1])] = "B"
         #Check if the user has dug up an entire bone
-        isCompleteBone(int(guess[0]),int(guess[1]))
     else:
         print("\n****OOPS! MISSED!****\n")
 
@@ -219,6 +219,11 @@ running = True
 while running:
     print("\nThere are " + str(numberOfBones) + " bones, each are " + str(sizeOfBone) + " cells long, buried in this backyard! Can you find them? ")
     showYard()
+    #guess will be undefined during the first run since no guess has occurred yet
+    try:
+        isCompleteBone(int(guess[0]),int(guess[1]))
+    except NameError:
+        print()
     guess = input("""To do so, please, enter the row and the column number of a cell in which you suspect a bone is buried
 (e.g., 0 3 if you suspect that part of a bone is buried on the first row at the 4th column).
 Enter -1 to quit : """).split()
@@ -245,6 +250,7 @@ Enter -1 to quit : """).split()
         revealBone()
         #If they have completed the game
         if isCompleteYard():
+            print("\nYou have fully uncovered the last bone!")
             print("\nCongratulations! You have found all the bones. Goodbye!")
             running = False
 
