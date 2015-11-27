@@ -57,7 +57,7 @@ def isHit():
         for j in range(sizeOfBone): #Check if coordinate matches a particular bone
             pos = line[j]
             if int(guess[0]) == int(pos[0]) and int(guess[1]) == int(pos[1]):
-                print("\n****HIT!!!!****")
+                print("\n****HIT!!!!****\n")
                 return True
 
 
@@ -111,7 +111,7 @@ def isCompleteBone(row, col):
 
         #Sort and compare bone and new_hit_list to see if they are equivalent
         if sorted(bone)== sorted(new_hit_list):
-            print("\nYou have fully uncovered bone " + str(i) + ". Great Job!")
+            print("You have fully uncovered bone " + str(i) + ". Great Job!\n")
 
         #Clear bone and new_hit_list to iterate through next bone
         bone = []
@@ -153,7 +153,7 @@ def revealBone():
         #Check if the user has dug up an entire bone
         isCompleteBone(int(guess[0]),int(guess[1]))
     else:
-        print("\n****OOPS! MISSED!****")
+        print("\n****OOPS! MISSED!****\n")
 
 
 #Display the yard
@@ -225,27 +225,27 @@ Enter -1 to quit : """).split()
 
     #Check for empty input
     if len(guess) == 0:
-        print("***You have not entered anything. You need to enter a valid row and the column number!")
+        print("***You have not entered anything. You need to enter a valid row and the column number!\n")
     #Check to ensure input is integer
     elif isNotInteger():
-        print("***You have entered " + str(guess[0]) + ". You need to enter a valid row and the column number!")
+        print("***You have entered " + str(guess[0]) + ". You need to enter a valid row and the column number!\n")
     #If the user wishes to exit the game
     elif int(guess[0]) == -1:
         print("\nWasn't it fun! Bye!")
         running = False
     #If the user doesn't enter both row and column values
     elif len(guess) == 1:
-        print("***You have entered only 1 value. You need to enter a valid row and the column number!")
+        print("***You have entered only 1 value. You need to enter a valid row and the column number!\n")
     #If coordinate is beyond the backyard's dimensions
     elif (int(guess[0]) > int(yAxis) or int(guess[0]) < 0) or (int(guess[0]) > xAxis or int(guess[0]) < 0) or (int(guess[1]) > int(yAxis) or int(guess[1]) < 0) or (int(guess[1]) > xAxis or int(guess[1]) < 0):
-        print("You needed to enter a row and column number of a cell that is within the backyard!")
+        print("You needed to enter a row and column number of a cell that is within the backyard!\n")
     #Good to go!
     else:
         #See if user guess was correct
         revealBone()
         #If they have completed the game
         if isCompleteYard():
-            print("\nCongratulations! You have found all the bones. Goodbye!\n")
+            print("\nCongratulations! You have found all the bones. Goodbye!")
             running = False
 
 
