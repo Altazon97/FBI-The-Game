@@ -216,14 +216,16 @@ bonelist = getCoordinates()
 
 #Get the valid input with guardian code
 running = True
+runs = 0
 while running:
     print("\nThere are " + str(numberOfBones) + " bones, each are " + str(sizeOfBone) + " cells long, buried in this backyard! Can you find them? ")
     showYard()
     #guess will be undefined during the first run since no guess has occurred yet
-    try:
-        isCompleteBone(int(guess[0]),int(guess[1]))
-    except NameError:
-        print()
+    if runs > 0:
+        try:
+            isCompleteBone(int(guess[0]),int(guess[1]))
+        except NameError:
+            print()
     guess = input("""To do so, please, enter the row and the column number of a cell in which you suspect a bone is buried
 (e.g., 0 3 if you suspect that part of a bone is buried on the first row at the 4th column).
 Enter -1 to quit : """).split()
@@ -248,6 +250,7 @@ Enter -1 to quit : """).split()
     else:
         #See if user guess was correct
         revealBone()
+        runs += 1
         #If they have completed the game
         if isCompleteYard():
             print("\nYou have fully uncovered the last bone!")
